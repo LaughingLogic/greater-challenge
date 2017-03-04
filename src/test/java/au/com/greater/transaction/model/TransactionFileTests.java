@@ -1,7 +1,5 @@
 package au.com.greater.transaction.model;
 
-import au.com.greater.transaction.model.Transaction;
-import au.com.greater.transaction.model.TransactionFile;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
