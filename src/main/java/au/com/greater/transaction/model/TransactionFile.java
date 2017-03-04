@@ -51,7 +51,7 @@ public class TransactionFile {
       account = new CustomerAccount(transaction.getCustomerAccountNumber());
     }
 
-    Double transactionAmount = transaction.getTransactionAmount();
+    double transactionAmount = transaction.getTransactionAmount();
 
     if (transactionAmount < 0) {
       // Negative transaction amounts represent a debit against a customer
