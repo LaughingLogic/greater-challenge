@@ -46,6 +46,10 @@ public class Scheduler {
           .withZone(ZoneOffset.UTC)
           .format(Instant.now()));
 
-    transactionProcessor.execute();
+    try {
+      transactionProcessor.execute();
+    } catch (RuntimeException e) {
+      log.error("Error processing transactions: {}: {}", e.getMessage(), e.getCause());
+    }
   }
 }
