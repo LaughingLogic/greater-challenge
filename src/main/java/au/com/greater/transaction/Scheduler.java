@@ -1,5 +1,6 @@
 package au.com.greater.transaction;
 
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +26,12 @@ import java.time.format.DateTimeFormatter;
  * @author Justin Lewis Salmon
  */
 @Component
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class Scheduler {
 
   private static final Logger log = LoggerFactory.getLogger(Scheduler.class);
 
   private final TransactionProcessor transactionProcessor;
-
-  @Autowired
-  public Scheduler(TransactionProcessor transactionProcessor) {
-    this.transactionProcessor = transactionProcessor;
-  }
 
   @Schedules({
       @Scheduled(cron = "0 1 6  * * ?"), // 06:01am

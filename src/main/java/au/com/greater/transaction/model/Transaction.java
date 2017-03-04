@@ -1,6 +1,7 @@
 package au.com.greater.transaction.model;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
  * This model class represents a single, immutable transaction for a single
@@ -9,14 +10,9 @@ import lombok.Getter;
  * @author Justin Lewis Salmon
  */
 @Getter
+@RequiredArgsConstructor
 public class Transaction {
 
   private final int customerAccountNumber;
-
   private final double transactionAmount;
-
-  public Transaction(int customerAccountNumber, double transactionAmount) {
-    this.customerAccountNumber = customerAccountNumber;
-    this.transactionAmount = transactionAmount;
-  }
 }

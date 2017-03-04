@@ -1,6 +1,7 @@
 package au.com.greater.transaction.model;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import java.util.Map;
  * @author Justin Lewis Salmon
  */
 @Getter
+@RequiredArgsConstructor
 public class TransactionFile {
 
   private final Path path;
@@ -28,10 +30,6 @@ public class TransactionFile {
   private final Map<Integer, CustomerAccount> accounts = new HashMap<>();
 
   private int numSkippedTransactions = 0;
-
-  public TransactionFile(Path path) {
-    this.path = path;
-  }
 
   /**
    * Add a single {@link Transaction} to this file.
