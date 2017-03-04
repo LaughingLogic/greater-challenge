@@ -1,7 +1,6 @@
 package au.com.greater.transaction.parser;
 
 import au.com.greater.transaction.model.TransactionFile;
-import au.com.greater.transaction.parser.TransactionFileParser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
