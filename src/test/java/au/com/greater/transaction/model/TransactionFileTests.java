@@ -1,4 +1,4 @@
-package au.com.greater.transaction;
+package au.com.greater.transaction.model;
 
 import au.com.greater.transaction.model.Transaction;
 import au.com.greater.transaction.model.TransactionFile;
