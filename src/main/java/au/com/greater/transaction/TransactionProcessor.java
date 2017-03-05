@@ -39,6 +39,9 @@ public class TransactionProcessor {
   @Value("${processing.archiveDir}")
   private String archiveDir;
 
+  /**
+   * This is the main entry point for the transaction file processing workflow.
+   */
   public void execute() {
     // Read all pending transaction files
     List<TransactionFile> transactionFiles = readPendingFiles();
