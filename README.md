@@ -1,7 +1,7 @@
 ## Greater Bank Coding Challenge
 
-This repository contains @jlsalmon's source code for the Greater Bank Coding 
-Challenge.
+This repository contains [@jlsalmon](https://github.com/jlsalmon)'s source code 
+for the Greater Bank Coding Challenge.
 
 ### Design discussion
 
