@@ -21,9 +21,6 @@ import static org.junit.Assert.assertTrue;
 /**
  * Integration tests for {@link TransactionProcessor}
  *
- * TODO: Ensure lack of $TRANSACTION_PROCESSING variable is handled sensibly
- * TODO: Handle misnamed files
- *
  * @author Justin Lewis Salmon
  */
 @RunWith(JUnit4.class)

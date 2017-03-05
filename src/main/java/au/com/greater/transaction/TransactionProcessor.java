@@ -75,9 +75,10 @@ public class TransactionProcessor {
    */
   private void writeReport(TransactionFile file) {
     String filename = file.getPath().getFileName().toString();
-    String datetime = filename.replace("finance_customer_transactions-", "").replace(".csv", "");
 
-    Path path = Paths.get(reportsDir, "finance_customer_transactions_report-" + datetime + ".txt");
+    // It is assumed that the files are well-named in advance
+    String datetime = filename.replace("finance_customer_transactions-", "").replace(".csv", "");
+    Path path = Paths.get(reportsDir,  "finance_customer_transactions_report-" + datetime + ".txt");
 
     log.info("Writing report to {}", path);
     FileUtils.writeFile(path, file.toString());
