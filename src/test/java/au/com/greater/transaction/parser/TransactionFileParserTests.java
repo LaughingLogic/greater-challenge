@@ -46,4 +46,13 @@ public class TransactionFileParserTests {
     assertEquals(0, file.getAccounts().size());
     assertEquals(0, file.getNumSkippedTransactions());
   }
+
+  @Test
+  public void largeFile() throws IOException {
+    Path path = new ClassPathResource("pending/finance_customer_transactions-500k.csv").getFile().toPath();
+    TransactionFile file = TransactionFileParser.fromPath(path);
+
+    assertEquals(11000, file.getAccounts().size());
+    assertEquals(0, file.getNumSkippedTransactions());
+  }
 }
