@@ -98,7 +98,8 @@ The average processing time for a file with 500,000 transactions is currently ar
 As a general rule, all methods that contain logic are unit tested. The main processing 
 control flow logic is integration tested with the entire application.
 
-As of 693e6a9, test coverage is 96%.
+As of [693e6a9](https://github.com/jlsalmon/greater-challenge/commit/693e6a9cf588f708a93e35953a649182875cefe8), 
+test coverage is 96%.
 
 ### Roadmap
 
