@@ -5,6 +5,8 @@ import au.com.greater.transaction.model.TransactionFile;
 import au.com.greater.transaction.utils.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.List;
  */
 public class TransactionFileParser {
 
+  private static final Logger log = LoggerFactory.getLogger(TransactionFileParser.class);
+
   /**
    * Read the customer transaction file at {@literal path} and process it into
    * a {@link TransactionFile} object.
@@ -28,6 +32,7 @@ public class TransactionFileParser {
   public static TransactionFile fromPath(Path path) {
     TransactionFile transactionFile = new TransactionFile(path);
 
+    double start = System.currentTimeMillis();
     List<String> lines = FileUtils.readLinesFromFile(path);
 
     // Skip the header line
@@ -39,6 +44,7 @@ public class TransactionFileParser {
       transactionFile.addTransaction(processLine(line));
     }
 
+    log.info("Processed {} transactions in {}ms", lines.size(), System.currentTimeMillis() - start);
     return transactionFile;
   }
 
