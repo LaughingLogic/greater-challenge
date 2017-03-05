@@ -107,8 +107,8 @@ test coverage is 96%.
 The next stage would be to establish a continuous integration and deployment strategy. One 
 proposed strategy would be to use a CI service such as [Travis CI](https://travis-ci.org/)
 to automate builds, then deploy to a staging environment hosted on e.g. AWS, Google Cloud 
-or similar self-hosted platform (e.g. OpenStack, OpenShift). Containerisation (if desired) 
-could be achieved via Docker.
+or a self-hosted platform e.g. OpenStack, OpenShift. Containerisation (if desired) could 
+be achieved via Docker.
 
 #### Scalability
 
@@ -143,7 +143,7 @@ $ mvn test
 
 #### Running the application
 
-If TRANSACTION_PROCESSING is already set on the system:
+If `$TRANSACTION_PROCESSING` is already set on the system:
 
 ```
 $ mvn spring-boot:run
