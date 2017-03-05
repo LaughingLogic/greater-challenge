@@ -28,7 +28,7 @@ chunks. The following distinct areas of operation have been identified:
 
 ### Implementation
 
-The application has been written in Java (v1.8) as it is the author's language 
+The application has been written in Java (1.8) as it is the author's language 
 of preference for enterprise-grade applications. The source tree is structured using 
 the standard Maven project layout. Dependency management is also handled via Maven.
 
@@ -53,6 +53,14 @@ The [`Scheduler`](src/main/java/au/com/greater/transaction/Scheduler.java) class
 responsible for executing scheduled jobs. It makes use of Spring's scheduling support
 (namely the `@EnableScheduling` and `@Scheduled` annotations) which makes it very simple 
 to ensure scheduled method execution with very little plumbing.
+
+The scheduler makes the following assumptions:
+
+* The time zone is always UTC
+* Transaction files take one minute or less to be received
+
+Therefore, the scheduler runs at 06:01am and 21:01pm UTC each day. This ensures that 
+processing commences within 5 minutes of delivery.
 
 The scheduler delegates to the 
 [`TransactionProcessor`](src/main/java/au/com/greater/transaction/TransactionProcessor.java)
@@ -135,23 +143,9 @@ be responsible for interfacing with the external system.
 
 Requirements: Java 1.8, Maven 3
 
-#### Running the tests
+Ensure the `$TRANSACTION_PROCESSING` variable is set on the system, then run the following:
 
 ```
-$ mvn test
-```
-
-#### Running the application
-
-If `$TRANSACTION_PROCESSING` is already set on the system:
-
-```
-$ mvn spring-boot:run
-```
-
-Otherwise:
-
-```
-$ TRANSACTION_PROCESSING=/path/to/directory
-$ mvn spring-boot:run
+$ mvn package
+$ java -jar target/transaction-processor*.jar
 ```
