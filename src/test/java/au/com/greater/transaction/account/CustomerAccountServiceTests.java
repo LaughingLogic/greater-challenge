@@ -26,4 +26,9 @@ public class CustomerAccountServiceTests {
     accountService.applyTransaction(new Transaction(1, 100.0));
     assertEquals(-100.0, accountService.getAccountBalance(1), 0);
   }
+
+  @Test(expected = RuntimeException.class)
+  public void unknownAccountThrowsException() {
+    accountService.getAccountBalance(-1);
+  }
 }
