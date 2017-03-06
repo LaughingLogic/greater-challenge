@@ -1,5 +1,6 @@
 package au.com.greater.transaction;
 
+import au.com.greater.transaction.account.CustomerAccountService;
 import au.com.greater.transaction.utils.FileUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -26,7 +27,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(JUnit4.class)
 public class TransactionProcessorTests {
 
-  private TransactionProcessor processor = new TransactionProcessor();
+  private TransactionProcessor processor = new TransactionProcessor(new CustomerAccountService());
 
   private Path pendingDir;
 

@@ -25,7 +25,7 @@ public class TransactionFileParserTests {
     TransactionFile file = TransactionFileParser.fromPath(path);
 
     // There should be one good line and six corrupt lines
-    assertEquals(1, file.getAccounts().size());
+    assertEquals(1, file.getNumAccounts());
     assertEquals(6, file.getNumSkippedTransactions());
   }
 
@@ -34,7 +34,7 @@ public class TransactionFileParserTests {
     Path path = new ClassPathResource("pending/finance_customer_transactions-empty.csv").getFile().toPath();
     TransactionFile file = TransactionFileParser.fromPath(path);
 
-    assertEquals(0, file.getAccounts().size());
+    assertEquals(0, file.getNumAccounts());
     assertEquals(0, file.getNumSkippedTransactions());
   }
 
@@ -43,7 +43,7 @@ public class TransactionFileParserTests {
     Path path = new ClassPathResource("pending/finance_customer_transactions-header_only.csv").getFile().toPath();
     TransactionFile file = TransactionFileParser.fromPath(path);
 
-    assertEquals(0, file.getAccounts().size());
+    assertEquals(0, file.getNumAccounts());
     assertEquals(0, file.getNumSkippedTransactions());
   }
 
@@ -52,7 +52,7 @@ public class TransactionFileParserTests {
     Path path = new ClassPathResource("pending/finance_customer_transactions-500k.csv").getFile().toPath();
     TransactionFile file = TransactionFileParser.fromPath(path);
 
-    assertEquals(11000, file.getAccounts().size());
+    assertEquals(11000, file.getNumAccounts());
     assertEquals(0, file.getNumSkippedTransactions());
   }
 }

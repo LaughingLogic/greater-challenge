@@ -4,20 +4,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This model class represents a single customer transaction file.
- *
- * As transactions are added, they are applied to the corresponding customer
- * account by either debiting or crediting the account. Customer accounts are
- * maintained in a {@link Map} for lookup performance. If an account is not
- * present in the map, a new instance is added with the initial debit/credit
- * amount.
- *
- * Null transactions will be skipped and added to the total skipped transaction
- * count.
  *
  * @author Justin Lewis Salmon
  */
@@ -27,7 +18,7 @@ public class TransactionFile {
 
   private final Path path;
 
-  private final Map<Integer, CustomerAccount> accounts = new HashMap<>();
+  private final List<Transaction> transactions = new ArrayList<>();
 
   private int numSkippedTransactions = 0;
 
@@ -45,48 +36,55 @@ public class TransactionFile {
       return;
     }
 
-    CustomerAccount account = accounts.get(transaction.getCustomerAccountNumber());
+    transactions.add(transaction);
+  }
 
-    if (account == null) {
-      account = new CustomerAccount(transaction.getCustomerAccountNumber());
-    }
-
-    double transactionAmount = transaction.getTransactionAmount();
-
-    if (transactionAmount < 0) {
-      // Negative transaction amounts represent a debit against a customer
-      // account, and the customer's account balance is increased.
-      account.debit(transactionAmount);
-    } else {
-      // Positive transaction amounts represent a credit against a customer
-      // account, and the customer's balance is decreased.
-      account.credit(transactionAmount);
-    }
-
-    accounts.put(account.getAccountNumber(), account);
+  /**
+   * @return the total number of unique customer accounts in this file
+   */
+  public long getNumAccounts() {
+    return transactions.stream()
+        .map(Transaction::getCustomerAccountNumber)
+        .distinct()
+        .count();
   }
 
   /**
    * @return the total credit amount for all accounts in this file
    */
   public double getTotalCredits() {
-    return accounts.values().stream().mapToDouble(CustomerAccount::getCredits).sum();
+    return transactions.stream()
+        .filter(t -> t.getTransactionAmount() > 0)
+        .mapToDouble(Transaction::getTransactionAmount)
+        .sum();
   }
 
   /**
-   *
    * @return the total debit amount for all accounts in this file
    */
   public double getTotalDebits() {
-    return accounts.values().stream().mapToDouble(CustomerAccount::getDebits).sum();
+    return transactions.stream()
+        .filter(t -> t.getTransactionAmount() < 0)
+        .mapToDouble(t -> Math.abs(t.getTransactionAmount()))
+        .sum();
   }
 
-  @Override
-  public String toString() {
+  /**
+   * Generate a report from this file detailing:
+   *
+   * - The name of the file processed
+   * - The number of accounts processed
+   * - The total credit amount
+   * - The total debit amount
+   * - The number of lines that were skipped
+
+   * @return the report as a string
+   */
+  public String generateReport() {
     return "File Processed: " + getPath().getFileName().toString() +
-         "\nTotal Accounts: " + String.format("%,d", accounts.size()) +
-         "\nTotal Credits : " + String.format("$%,.2f", getTotalCredits()) +
-         "\nTotal Debits  : " + String.format("$%,.2f", getTotalDebits()) +
-         "\nSkipped Transactions: " + numSkippedTransactions;
+        "\nTotal Accounts: " + String.format("%,d", getNumAccounts()) +
+        "\nTotal Credits : " + String.format("$%,.2f", getTotalCredits()) +
+        "\nTotal Debits  : " + String.format("$%,.2f", getTotalDebits()) +
+        "\nSkipped Transactions: " + getNumSkippedTransactions();
   }
 }
