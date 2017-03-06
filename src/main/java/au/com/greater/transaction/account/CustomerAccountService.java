@@ -50,6 +50,12 @@ public class CustomerAccountService {
     accounts.put(account.getAccountNumber(), account);
   }
 
+  /**
+   * Retrieve the balance of a single customer account.
+   *
+   * @param customerAccountNumber the number of the account to query
+   * @return the account balance
+   */
   public double getAccountBalance(int customerAccountNumber) {
     CustomerAccount account = accounts.get(customerAccountNumber);
 
